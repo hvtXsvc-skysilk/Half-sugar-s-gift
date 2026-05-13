@@ -1,4 +1,4 @@
-# Contributing to [Half Sugar's Gift](README.md)
+# Contributing to Half Sugar's Gift
 
 首先，感谢你花时间贡献代码！这份指南会告诉你如何参与到本项目中来。
 
