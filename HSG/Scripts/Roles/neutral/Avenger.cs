@@ -1,10 +1,11 @@
-﻿/*using HarmonyLib;
+﻿using HarmonyLib;
 using Nebula;
 using Nebula.Behavior;
 using Nebula.Game.Statistics;
 using Nebula.Modules;
 using Nebula.Player;
 using Nebula.Roles;
+using NebulaN.Core;
 using Virial.Events.Player;
 using Citations = hvtXsvc.Core.Citations;
 using GamePlayer = Virial.Game.Player;
@@ -15,9 +16,6 @@ namespace NebulaN.Roles.Neutral;
 public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
     RuntimeAssignableGenerator<RuntimeRole>, IAssignableDocument
 {
-    private static Team MyTeam = new Team("teams.Havenger",
-        new Virial.Color(0.8f, 0.2f, 0.2f), TeamRevealType.OnlyMe);
-
     static private FloatConfiguration revengeDuration = NebulaAPI.Configurations.Configuration(
         "options.role.Havenger.revengeDuration",
         (10f, 120f, 5f),
@@ -29,15 +27,12 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
         "Havenger",
         new Virial.Color(0.8f, 0.2f, 0.2f),
         RoleCategory.NeutralRole,
-        MyTeam,
+        team.HAvengerTeam,   // 外部定义的阵营
         new Virial.Configuration.IConfiguration[] { revengeDuration }
     )
-    {
-        HAvengerRevengeWin = NebulaAPI.Preprocessor!.CreateEnd("HAvengerRevenge",
-            new Virial.Color(0.8f, 0.2f, 0.2f), 0);
-    }
+    { }
 
-    public static GameEnd HAvengerRevengeWin { get; private set; } = null!;
+    public static GameEnd HAvengerRevengeWin => team.HAvengerWin;
 
     Citation? HasCitation.Citation => Citations.hvtXsvc_hsg;
 
@@ -64,7 +59,6 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
 
         void RuntimeAssignable.OnActivated()
         {
-            
             if (!AmOwner) return;
             new StaticAchievementToken("BeNothing.common1");
             wasKilled = false;
@@ -72,7 +66,7 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
 
             GameOperatorManager.Instance?.Subscribe<PlayerMurderedEvent>(ev =>
             {
-                if (ev.Dead.AmOwner && !MeetingHud.Instance && !ExileController.Instance)
+                if (ev.Dead == MyPlayer && !MeetingHud.Instance && !ExileController.Instance)
                 {
                     wasKilled = true;
                     myKiller = ev.Murderer;
@@ -83,15 +77,18 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
             GameOperatorManager.Instance?.Subscribe<MeetingEndEvent>(ev =>
             {
                 if (!wasKilled) return;
-
-                if (MyPlayer.IsDead || myKiller == null || myKiller.IsDead)
+                if (myKiller == null || myKiller.IsDead)
                 {
                     if (!MyPlayer.IsDead)
                         MyPlayer.Suicide(PlayerState.Dead, null, KillParameter.NormalKill, null);
                     return;
                 }
-
+                // 复活玩家
+                MyPlayer.Revive(null, MyPlayer.Position, true, true);
+                // 进入复仇模式
                 new AvengerRevengeMode(this, myKiller, revengeDuration).Register(this);
+                wasKilled = false;
+                myKiller = null;
             }, this);
         }
 
@@ -101,10 +98,9 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
                 foreach (var body in Helpers.AllDeadBodies()
                              .Where(b => b.ParentId == player.PlayerId))
                 {
-                    GameObject.Destroy(body.gameObject);
+                    UnityEngine.Object.Destroy(body.gameObject);
                 }
             });
-
     }
 
     public class AvengerRevengeMode : FlexibleLifespan, IGameOperator
@@ -132,6 +128,7 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
                 HudManager.Instance.UseButton.graphic.enabled = false;
             }
 
+            // 传送所有存活玩家（包括自己）
             RpcScatterAllPlayers.Invoke();
 
             if (myPlayer.AmOwner)
@@ -160,7 +157,9 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
                     if (target == targetKiller)
                     {
                         new StaticAchievementToken("Havenger.common.revenge");
-                        NebulaAPI.CurrentGame?.TriggerGameEnd(HAvengerRevengeWin, GameEndReason.Special);
+                        // 触发复仇胜利
+                        NebulaAPI.CurrentGame?.TriggerGameEnd(team.HAvengerWin, GameEndReason.Special);
+                        Release();
                     }
                     else
                     {
@@ -171,6 +170,8 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
                     }
                 };
             }
+
+            // 倒计时结束后自杀（复仇失败）
             NebulaManager.Instance.StartDelayAction(duration, () =>
             {
                 if (!myPlayer.IsDead)
@@ -180,6 +181,18 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
                 }
                 Release();
             });
+
+            // 注册胜利判定（房主端）
+            if (AmongUsClient.Instance.AmHost)
+            {
+                GameOperatorManager.Instance.Subscribe<PlayerCheckWinEvent>(ev =>
+                {
+                    if (ev.GameEnd == team.HAvengerWin && !avenger.MyPlayer.IsDead)
+                    {
+                        ev.SetWinIf(true);
+                    }
+                }, this, 101);
+            }
         }
 
         void IGameOperator.OnReleased()
@@ -189,8 +202,11 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
             if (avenger.MyPlayer.AmOwner)
             {
                 var reportButton = HudManager.Instance.ReportButton;
-                reportButton.enabled = true;
-                reportButton.graphic.enabled = true;
+                if (reportButton != null)
+                {
+                    reportButton.enabled = true;
+                    reportButton.graphic.enabled = true;
+                }
                 HudManager.Instance.UseButton.enabled = true;
                 HudManager.Instance.UseButton.graphic.enabled = true;
             }
@@ -205,7 +221,7 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
                 Vector2 destination;
                 if (UnityEngine.Random.value > 0.5f)
                 {
-                    var vents = GameObject.FindObjectsOfType<Vent>();
+                    var vents = UnityEngine.Object.FindObjectsOfType<Vent>();
                     if (vents.Length > 0)
                     {
                         var vent = vents[UnityEngine.Random.Range(0, vents.Length)];
@@ -227,6 +243,8 @@ public class Avenger : DefinedRoleTemplate, HasCitation, DefinedRole,
         });
     }
 }
+
+// 阻止复仇模式期间使用管道
 [HarmonyPatch(typeof(Vent), nameof(Vent.CanUse))]
 public static class AvengerVentBlockPatch
 {
@@ -240,4 +258,3 @@ public static class AvengerVentBlockPatch
         return true;
     }
 }
-*/

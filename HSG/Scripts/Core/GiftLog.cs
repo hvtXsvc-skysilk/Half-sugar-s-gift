@@ -1,24 +1,25 @@
-﻿/*由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
- 由deepseek编写
+﻿/* 由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
+   由deepseek编写
  */
 
 using System;
 using System.IO;
 using UnityEngine;
+
 /// <summary>
-///日志工具
+/// 日志工具
 /// </summary>
 public static class HsgDebug
 {
@@ -32,14 +33,14 @@ public static class HsgDebug
         StartupTime = DateTime.Now.ToString("yyyy/M/d HH:mm:ss");
 
         // 1. 优先尝试游戏根目录（Among Us 文件夹）
-        string gameRootPath = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "GiftLog.log");
+        string gameRootPath = Path.Combine(Directory.GetParent(Application.dataPath).FullName, "Gift.log");
+        string determinedPath = null;
 
         try
         {
-            // 测试能否在根目录创建文件
-            File.Create(gameRootPath).Dispose();
-            File.Delete(gameRootPath);
-            LogFilePath = gameRootPath;
+            // 测试根目录是否可写（不破坏已有文件）
+            using (File.Open(gameRootPath, FileMode.OpenOrCreate, FileAccess.Write)) { }
+            determinedPath = gameRootPath;
         }
         catch
         {
@@ -48,10 +49,17 @@ public static class HsgDebug
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
                 "..", "LocalLow", "Innersloth", "Among Us"
             );
-            LogFilePath = Path.Combine(Path.GetFullPath(localLow), "GiftLog.log");
+            determinedPath = Path.Combine(Path.GetFullPath(localLow), "GiftLog.log");
+
+            // 确保目录存在
+            string directory = Path.GetDirectoryName(determinedPath);
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
         }
 
-        ClearLog();
+        LogFilePath = determinedPath;
+
+        // 每次启动时，在现有日志末尾追加一条开始信息（不再清空）
         AppendLog("=====Log Started " + StartupTime + "=====");
 
         // 监听未处理异常，记录崩溃信息
@@ -92,7 +100,7 @@ public static class HsgDebug
     }
 
     /// <summary>
-    /// 当日志超过 1MB 时自动清空文件。
+    /// 当日志超过 1MB 时自动清空文件（仅保留重置标记）。
     /// </summary>
     private static void CheckFileSize()
     {
@@ -109,7 +117,7 @@ public static class HsgDebug
     }
 
     /// <summary>
-    /// 清空日志文件。
+    /// 清空日志文件（保留供外部调用，但构造函数中不再使用）。
     /// </summary>
     private static void ClearLog()
     {

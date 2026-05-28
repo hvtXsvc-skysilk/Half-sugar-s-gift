@@ -13,8 +13,6 @@ public class Imagination : DefinedRoleTemplate, HasCitation, DefinedRole,
 
     public static GameEnd ImaginationWin { get; private set; } = null!;
 
-    public static TranslatableTag Depression = new TranslatableTag("state.imaginationDepression");
-
     internal static IntegerConfiguration candidateCount = NebulaAPI.Configurations.Configuration(
         "options.role.imagination.candidateCount", (1, 10), 3, null, null);
 

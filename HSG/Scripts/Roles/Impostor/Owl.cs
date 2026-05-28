@@ -2,6 +2,7 @@
 using Nebula.Game.Statistics;
 using Nebula.Modules;
 using Nebula.Player;
+using NebulaN.Core;
 using NebulaN.Roles.Modifier;
 using Virial.Events.Player;
 using GamePlayer = Virial.Game.Player;
@@ -32,7 +33,7 @@ public class Owl : DefinedRoleTemplate, HasCitation, DefinedRole,
 
     private Owl() : base(
         "owl",
-        new Virial.Color(Palette.ImpostorRed.r,Palette.ImpostorRed.g,Palette.ImpostorRed.b),
+        Cor.impRed,
         RoleCategory.ImpostorRole,
         NebulaTeams.ImpostorTeam,
         new Virial.Configuration.IConfiguration[] {

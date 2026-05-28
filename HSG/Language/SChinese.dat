@@ -31,11 +31,6 @@
 
 
 
-
-
-
-
-
 "role.referee.name" : "裁判"
 "role.referee.short" : "裁判"
 "role.referee.blurb" : "不要辜负我对你的期望"
@@ -51,6 +46,53 @@
 "options.role.referee.suicideNeutral" : "招募到中立时自杀"
 "options.role.referee.suicideCrewmate" : "招募到船员时自杀"
 "button.label.referee.recruit" : "招募"
+
+
+"role.wish.name" : "「愿」"
+"role.wish.blurb" : "愿下次相遇不是阴阳两隔"
+"role.wish.short" : "愿"
+"role.wish.doc" : "使用<b>祈愿</b>为玩家添加标记，查看凶手信息/保护其不被放逐"
+"role.wish.ability.title" : "<b>固有能力【祈愿】</b>"
+"role.wish.ability.main" : "可以使用<b>祈愿</b>来为他人叠加一层标记，<br>当那人被标记，如果他死亡，你得知凶手信息。<br>如果他被放逐，将阻止本次放逐。<br>根据房主设置，<b>祈愿</b>叠加给伪装者，船员，中立阵营时，愿是否会自杀。"
+"role.wish.doc.wishSkill" : "<b>祈愿</b><br>在行动阶段标记他人"
+"role.wish.tips" : " "
+"options.role.wish.detail" : "愿可以标记他人并产生技能效果<br><b>这是半糖送给你的礼物之一！</b>"
+"options.role.wish.MarkCoolDown" : "技能冷却"
+"options.role.wish.MarkMaxUses" : "技能使用次数上限"
+"options.role.wish.suicideImpostor" : "祈愿伪装者时是否暴毙"
+"options.role.wish.suicideNeutral" : "祈愿中立阵营是否暴毙"
+"options.role.wish.suicideCrewmate" : "祈愿船员是否暴毙"
+"button.label.wish.mark" : "祈愿"
+
+
+"role.snitch.name" : "告密者"
+"role.snitch.blurb" : "我一定会将这份情报，安全地带回去！"
+"role.snitch.short" : "告密"
+"role.snitch.canBeGuess.true" : "你仍然可以被赌杀"
+"role.snitch.canBeGuess.false" : "你将无法被赌杀"
+"role.snitch.imposter.all" : "得知所有伪装者"
+"role.snitch.imposter.count" : "得知 %COUNT% 个伪装者"
+"role.snitch.neutral.any" : "和所有中立"
+"role.snitch.neutral.evilOnly" : "和邪恶中立"
+"role.snitch.neutral.none" : ""
+
+"options.role.snitch.detail" : "告密者做完全部任务后可以得知伪装者或者中立的位置。<br><b>这是半糖送给你的礼物之一！</b>"
+"role.snitch.doc" : "告密者在做完全部的任务后，可以<b><color=#00ffff>%ImpInfo%%NeuInfo%</color></b>的位置。<br>但是当告密者剩余一个任务时，所有伪装者得到提示。届时，<b><color=#00ffff>%CanBeGuessed%</color></b>。"
+"options.role.snitch.canBeGuess" : "暴露位置后可被赌杀"
+"options.role.snitch.zhixiangJiGeLang" : "指向伪装者数量"
+"options.role.snitch.all" : "所有"
+"1" : "1"
+"2" : "2"
+"3" : "3"
+"4" : "4"
+"5" : "5"
+"options.role.snitch.useSpeTask" : "特殊设置任务数量"
+"options.role.snitch.TaskShuLiang" : "任务数量"
+"options.role.snitch.NeCo" : "指向中立类型"
+"options.role.snitch.neutral.any" : "所有中立"
+"options.role.snitch.neutral.OnlyHUAIDE" : "仅邪恶中立"
+"options.role.snitch.neutral.none" : "不指向中立"
+
 
 
 
@@ -146,11 +188,6 @@
 "options.role.objector.uses" : "异议最大使用次数"
 "objector.ui.uses" : "剩余异议次数：%LEFTUSES%"
 
-"achievement.objector.common.success.title" : "已处理放逐人员"
-"achievement.objector.common.success.cond" : ""
-"achievement.objector.common.success.goal" : "异议一次"
-
-
 
 
 "role.owl.name" : "猫头鹰"
@@ -178,7 +215,7 @@
 #中立
 
 "role.Havenger.blurb" : "以牙还牙、以命偿命"
-"role.Havenger.doc" : "<b>本职业有bug</b><br>如果自由阶段被刀，尸体消失，并在下一轮获得寻仇状态<br>期间禁止开会，所有人禁止跳管。<br>若刀错，寻仇者与被刀者死亡、若超时，寻仇者死亡、若刀对，寻仇者胜利。"
+"role.Havenger.doc" : "如果自由阶段被刀，尸体消失，并在下一轮获得寻仇状态<br>期间禁止开会，所有人禁止跳管。<br>若刀错，寻仇者与被刀者死亡、若超时，寻仇者死亡、若刀对，寻仇者胜利。"
 "role.Havenger.name" : "寻仇者"
 "role.Havenger.tips" : "·你的寻仇击杀次数只有一次。"
 "options.role.Havenger.detail" : "寻仇者死亡后需要向凶手报仇<br><b>这是半糖送给你的礼物之一！</b>"
@@ -219,7 +256,25 @@
 "role.imagination.prefix" : "想象的%ROLE%"
 "role.imagination.select" : "选择一个职业进行想象(选择完毕后请手动关闭本窗口)"
 
+"role.spirit.name" : "「灵」"
+"role.spirit.short" : "灵"
+"role.spirit.blurb" : "灵起灵碎，交付大业，灵间相连，灵又碎灵，无穷尽也"
+"role.spirit.doc" : "可以使用灵击使被选中者自杀。<br>可以使用<b>还灵</b>让别人成为灵，同时你变成碎灵。"
+"options.role.spirit.detail" : "将别人变成灵，共同获胜<br><b>这是半糖送给你的礼物之一！</b>"
+"role.spirit.ability.title" : "<b>固有能力【灵焰】</b>"
+"role.spirit.ability.main" : "拥有特殊的击杀能力，可以直接让被选中者直接自杀，次数依照房主设置。<br>当击杀次数用完后，解锁还灵技能。<br>对某人使用，可以使某人成为灵，你成为碎灵。<br>碎灵能不能击杀，击杀次数依照房主设置。<br>如果灵死亡，所有碎灵连带死亡。<br>碎灵和灵之间会有仅灵阵营可见的名字后的}{标识。"
+"role.spirit.doc.sb" : "<b>还灵</b><br>将别人变成灵，自己变成碎灵"
+"options.role.spirit.KillCoolDown" : "击杀冷却时间"
+"options.role.spirit.KillMaxUses" : "最大击杀次数"
+"options.role.spirit.SoulBack" : "可使用还灵"
+"button.label.spirit.kill" : "灵击"
+"button.label.spirit.sb" : "还灵"
 
+"role.brokenspirit.name" : "「碎灵」"
+"role.brokenspirit.short" : "碎"
+"role.brokenspirit.blurb" : "破败不堪的一具“灵魂”"
+"role.brokenspirit.doc" : "碎灵是灵使用还灵后产生的角色，拥有普通的击杀技能，次数依照房主设置。<br>当灵死亡时，所有碎灵死亡。<br>灵与碎灵的名字后会有一个}{标识，只有本阵营能看到。"
+"options.role.brokenspirit.detail" : "碎灵是灵使用还灵后产生的角色。<br><b>这是半糖送给你的礼物之一！</b>"
 
 
 
@@ -261,3 +316,12 @@
 
 "state.imaginationDepression" : "抑郁"
 "state.partyAccident" : "舞会事故"
+"state.brokewish" : "碎愿" 
+"state.sanling" : "散灵"
+"state.soulback" : "魂归"
+
+#阵营
+"teams.Havenger" : "寻仇者"
+"HavengerWin" : "寻仇者胜利"
+"teams.spirit" : "灵"
+"spiritWin" : "灵胜利"

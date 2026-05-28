@@ -19,6 +19,7 @@ global using Citations1 = hvtXsvc.Core.Citations;
 global using Color1 = Virial.Color;
 global using NPlayer1 = Virial.Game.Player;
 using Nebula.Modules;
+using NebulaN.Core;
 using Virial.Events.Player;
 
 namespace NebulaN.Roles.Impostor;
@@ -44,7 +45,7 @@ public class Restorer : DefinedRoleTemplate, HasCitation, DefinedRole,
 
     private Restorer() : base(
         "restorer",
-        new Color1(Palette.ImpostorRed.r, Palette.ImpostorRed.g, Palette.ImpostorRed.b),
+        Cor.impRed,
         RoleCategory.ImpostorRole,
         NebulaTeams.ImpostorTeam,
         new Virial.Configuration.IConfiguration[] { cooldown, skillUses }

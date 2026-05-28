@@ -7,6 +7,7 @@ using Nebula.Modules;
 using Nebula.Modules.ScriptComponents;
 using Nebula.Player; 
 using Nebula.Utilities;
+using NebulaN.Core;
 using UnityEngine;
 using Virial;
 using Virial.Assignable;
@@ -29,14 +30,14 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
     static private IntegerConfiguration partyUses = NebulaAPI.Configurations.Configuration(
         "options.role.maskeddancer.partyuses", (1, 10), 2, null, null);
 
-    static private FloatConfiguration inviteCooldownFirst = NebulaAPI.Configurations.Configuration(
-        "options.role.maskeddancer.inviteCooldownFirst", (0f, 60f, 2.5f), 10f,
+    static private FloatConfiguration inviteCooldownA = NebulaAPI.Configurations.Configuration(
+        "options.role.maskeddancer.inviteCooldownA", (0f, 60f, 2.5f), 10f,
         FloatConfigurationDecorator.Second, null, null);
-    static private FloatConfiguration inviteCooldownSecond = NebulaAPI.Configurations.Configuration(
-        "options.role.maskeddancer.inviteCooldownSecond", (0f, 60f, 2.5f), 15f,
+    static private FloatConfiguration inviteCooldownB = NebulaAPI.Configurations.Configuration(
+        "options.role.maskeddancer.inviteCooldownB", (0f, 60f, 2.5f), 15f,
         FloatConfigurationDecorator.Second, null, null);
-    static private FloatConfiguration inviteCooldownThird = NebulaAPI.Configurations.Configuration(
-        "options.role.maskeddancer.inviteCooldownThird", (0f, 60f, 2.5f), 20f,
+    static private FloatConfiguration inviteCooldownC = NebulaAPI.Configurations.Configuration(
+        "options.role.maskeddancer.inviteCooldownC", (0f, 60f, 2.5f), 20f,
         FloatConfigurationDecorator.Second, null, null);
     static private FloatConfiguration startPartyCooldown = NebulaAPI.Configurations.Configuration(
         "options.role.maskeddancer.startcooldown", (10f, 120f, 5f), 30f,
@@ -45,7 +46,7 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
     private MaskedDancer() : base(
         "maskedDancer", LightBlue, RoleCategory.CrewmateRole, NebulaTeams.CrewmateTeam,
         new Virial.Configuration.IConfiguration[] {
-            partyUses, inviteCooldownFirst, inviteCooldownSecond, inviteCooldownThird, startPartyCooldown
+            partyUses, inviteCooldownA, inviteCooldownB, inviteCooldownC, startPartyCooldown
         })
     {
        ConfigurationHolder!.Illustration = NebulaAPI.AddonAsset.GetResource("BigPic/MaskedDancer.png")?.AsImage(115f);
@@ -84,7 +85,7 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
 
         int usesLeft;
         List<NPlayer> invitedPlayers = new();
-        bool canStartParty = false;
+        bool PartyCanUse = false;
 
         List<PoolablePlayer> invitedIcons = new();
         Dictionary<byte, PoolablePlayer> iconDict = new();
@@ -107,7 +108,7 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
 
             usesLeft = partyUses;
             invitedPlayers.Clear();
-            canStartParty = false;
+            PartyCanUse = false;
             iconHolder = HudContent.InstantiateContent("MaskedDancerIcons", true, true).gameObject;
             invitedIcons.Clear();
             iconDict.Clear();
@@ -117,7 +118,7 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
 
             var playerTracker = NebulaAPI.Modules.PlayerTracker(this, MyPlayer);
             playerTracker.SetColor(MyRole.RoleColor);
-            var inviteBtn = NebulaAPI.Modules.AbilityButton(
+            var invite = NebulaAPI.Modules.AbilityButton(
                 this, MyPlayer, VirtualKeyInput.Ability, 0f,
                 "maskedDancer.invite", inviteIcon,
                 (ModAbilityButton _) => playerTracker.CurrentTarget != null
@@ -128,7 +129,7 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
                 false
             );
 
-            inviteBtn.OnClick = (button) =>
+            invite.OnClick = (button) =>
             {
                 var targetLike = playerTracker.CurrentTarget;
                 if (targetLike == null) return;
@@ -165,9 +166,9 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
 
                 float nextCd = invitedPlayers.Count switch
                 {
-                    1 => inviteCooldownFirst,
-                    2 => inviteCooldownSecond,
-                    3 => inviteCooldownThird,
+                    1 => inviteCooldownA,
+                    2 => inviteCooldownB,
+                    3 => inviteCooldownC,
                     _ => 10f
                 };
                 button.CoolDownTimer = NebulaAPI.Modules.Timer(this, nextCd).SetAsAbilityTimer().Start(nextCd);
@@ -176,7 +177,7 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
             var startBtn = NebulaAPI.Modules.AbilityButton(
                 this, MyPlayer, VirtualKeyInput.SecondaryAbility,
                 startPartyCooldown, "maskedDancer.start", startIcon,
-                (ModAbilityButton _) => invitedPlayers.Count == 3 && canStartParty && !MyPlayer.IsDead,
+                (ModAbilityButton _) => invitedPlayers.Count == 3 && PartyCanUse && !MyPlayer.IsDead,
                 (button) => !MyPlayer.IsDead && usesLeft > 0,
                 false
             );
@@ -185,47 +186,47 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
 
             startBtn.OnClick = (button) =>
             {
-                if (invitedPlayers.Count != 3 || !canStartParty) return;
+                if (invitedPlayers.Count != 3 || !PartyCanUse) return;
 
-                int aCount = 0, bCount = 0, cCount = 0;
+                int a = 0, b = 0, c = 0;
                 foreach (var p in invitedPlayers)
                 {
                     switch (p.Role.Role.Category)
                     {
-                        case RoleCategory.CrewmateRole: aCount++; break;
-                        case RoleCategory.ImpostorRole: bCount++; break;
-                        case RoleCategory.NeutralRole: cCount++; break;
+                        case RoleCategory.CrewmateRole: a++; break;
+                        case RoleCategory.ImpostorRole: b++; break;
+                        case RoleCategory.NeutralRole: c++; break;// 吓哭了c++。（？
                     }
                 }
 
-                if (aCount == 1 && bCount == 1 && cCount == 1) { /*？！棍母发生了！？*/}
-                else if (aCount == 3) {/*喵。*/}
-                else if (aCount == 2)
+                if (a == 1 && b == 1 && c == 1) { /*？！棍母发生了！？*/}
+                else if (a == 3) {/*喵。*/}
+                else if (a == 2)
                 {
                     foreach (var p in invitedPlayers)
                     {
                         if (p.Role.Role.Category != RoleCategory.CrewmateRole)
                         {
-                            p.Suicide(PlayerState.Dead, null, KillParameter.NormalKill, null);
+                            p.Suicide(State.PartyAccident, null, KillParameter.NormalKill, null);
                             break;
                         }
                     }
                 }
-                else if (aCount == 0)
+                else if (a == 0)
                 {
-                    MyPlayer.Suicide(PlayerState.Dead, null, KillParameter.NormalKill, null);
+                    MyPlayer.Suicide(State.PartyAccident, null, KillParameter.NormalKill, null);
                 }
                 else
                 {
                     var target = invitedPlayers[UnityEngine.Random.Range(0, invitedPlayers.Count)];
-                    target.Suicide(PlayerState.Dead, null, KillParameter.NormalKill, null);
+                    target.Suicide(State.PartyAccident, null, KillParameter.NormalKill, null);
                 }
                 foreach (var icon in invitedIcons)
                     if (icon) GameObject.Destroy(icon.gameObject);
                 invitedIcons.Clear();
                 iconDict.Clear();
                 invitedPlayers.Clear();
-                canStartParty = false;
+                PartyCanUse = false;
                 usesLeft--;
                 button.UpdateUsesIcon(usesLeft.ToString());
             };
@@ -233,7 +234,7 @@ public class MaskedDancer : DefinedRoleTemplate, HasCitation, DefinedRole,
             GameOperatorManager.Instance?.Subscribe<MeetingEndEvent>(ev =>
             {
                 if (AmOwner && !MyPlayer.IsDead && invitedPlayers.Count == 3)
-                    canStartParty = true;
+                    PartyCanUse = true;
 
                 var deadList = invitedPlayers.Where(p => p.IsDead).ToList();
                 foreach (var dead in deadList)

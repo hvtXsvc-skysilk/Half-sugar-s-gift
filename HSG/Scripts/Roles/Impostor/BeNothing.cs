@@ -72,7 +72,7 @@ using NPlayer = Virial.Game.Player;
                         "BeNothing",
                         BNIcon,
                         (ModAbilityButton _) => true,
-                        (button) => !MyPlayer.IsDead && !button.IsInEffect,
+                        (button) => !MyPlayer.IsDead,
                         false
                     );
 
@@ -88,6 +88,7 @@ using NPlayer = Virial.Game.Player;
                     
                     btn.OnClick = (button) =>
                     {
+                        if (button.IsInEffect) return;
                         float dur = duration;     
                         float spd = speedMultiplier;
 

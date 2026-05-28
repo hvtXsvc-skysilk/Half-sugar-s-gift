@@ -54,7 +54,7 @@ public class Referee : DefinedRoleTemplate, HasCitation, DefinedRole,
 
     private Referee() : base(
         "referee",
-        new Virial.Color(0f,1f,1f),
+        Cor.cyan,
         RoleCategory.CrewmateRole,
         NebulaTeams.CrewmateTeam,
         new Virial.Configuration.IConfiguration[] {
@@ -62,7 +62,7 @@ public class Referee : DefinedRoleTemplate, HasCitation, DefinedRole,
             suicideOnImpostor,
             suicideOnNeutral,
             suicideOnCrewmate,
-            PatchManager.RefereeChatEnabled
+            Patch.RefereeChatEnabled
         }
     )
     {

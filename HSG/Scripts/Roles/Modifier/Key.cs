@@ -1,5 +1,5 @@
 ﻿using NPlayer = Virial.Game.Player;
-
+using Vector2 = UnityEngine.Vector2;
 using hvtXsvc.Core;
 using Nebula;
 using Nebula.Modules;
@@ -22,6 +22,13 @@ public class KeyMaster : DefinedAllocatableModifierTemplate, HasCitation, Define
         null, null
     );
 
+    static private FloatConfiguration Specooldown = NebulaAPI.Configurations.Configuration(
+        "options.modifier.keymaster.Specooldown",
+        (0f, 60f, 2.5f),
+        15,
+        FloatConfigurationDecorator.Second,
+        null, null
+    );
     /*static private IntegerConfiguration maxUses = NebulaAPI.Configurations.Configuration(
         "options.modifier.keymaster.maxuses",
         (1, 15),
@@ -35,7 +42,7 @@ public class KeyMaster : DefinedAllocatableModifierTemplate, HasCitation, Define
         "keymaster",
         "key",
         new Virial.Color(0f, 1f, 0f),
-        new Virial.Configuration.IConfiguration[] { cooldown },
+        new Virial.Configuration.IConfiguration[] { cooldown,Specooldown},
         allocateToCrewmate: true,
         allocateToImpostor: true,
         allocateToNeutral: true
@@ -87,26 +94,29 @@ public class KeyMaster : DefinedAllocatableModifierTemplate, HasCitation, Define
                 hackButton.OnClick = (ModAbilityButton button) =>
                 {
                     var pos = new UnityEngine.Vector2(MyPlayer.TruePosition.x, MyPlayer.TruePosition.y);
+                    bool openedDecontamination = false;
 
                     foreach (OpenableDoor door in ShipStatus.Instance.AllDoors)
                     {
-                        if (!door.IsOpen && door.Room != SystemTypes.Decontamination)
+                        if (!door.IsOpen)  // 不再排除净化室
                         {
-                            float dist = UnityEngine.Vector2.Distance(pos, door.transform.position);
+                            float dist = Vector2.Distance(pos, door.transform.position);
                             if (dist <= OpenRadius)
                             {
-                               
+                                // 记录是否打开了净化室门
+                                if (door.Room == SystemTypes.Decontamination)
+                                    openedDecontamination = true;
+
                                 ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Doors, (byte)(door.Id | 64));
                             }
                         }
                     }
-
-                  
-                    hackButton.CoolDownTimer?.Start(cooldown);
-                   
+                    if (openedDecontamination)
+                        hackButton.CoolDownTimer?.Start(Specooldown);
+                    else
+                        hackButton.CoolDownTimer?.Start(cooldown);
                 };
                 var timer = new TimerImpl(cooldown).SetAsAbilityCoolDown();
-                timer.Start(null); 
                 hackButton.CoolDownTimer = GameEntityExtension.Register<TimerImpl>(timer, this, null);
             }
         }

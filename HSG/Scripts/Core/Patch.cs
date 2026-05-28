@@ -18,15 +18,62 @@ using GamePlayer = Virial.Game.Player;
 
 namespace NebulaN.Core;
 
+static public class Cor
+{
+    static public Virial.Color cyan = new(0f, 1f, 1f);
+    static public Virial.Color impRed = new(Palette.ImpostorRed.r,Palette.ImpostorRed.g,Palette.ImpostorRed.b);
+    static public Virial.Color lightYellow = new(1f, 0.9f, 0.6f);
+    static public Virial.Color green = new(0f,1f,0f);
+    static public Virial.Color blue = new(0f,0f,1f);
+    static public Virial.Color White=new(1f,1f,1f);
+    static public Virial.Color SpiritCor=new(0f,0.1f,0.4f);
+}
+public class State
+{
+    /// <summary>
+    /// 死因：碎望
+    /// </summary>
+    public static TranslatableTag BrokenWish = new TranslatableTag("state.brokewish");
+    /// <summary>
+    /// 死因：抑郁
+    /// </summary>
+    public static TranslatableTag Depression = new TranslatableTag("state.imaginationDepression");
+    /// <summary>
+    /// 死因：舞会事故
+    /// </summary>
+    public static TranslatableTag PartyAccident = new TranslatableTag("state.partyAccident");
+    /// <summary>
+    /// 死因：散灵
+    /// </summary>
+    public static TranslatableTag SanLing = new TranslatableTag("state.sanling");
+    /// <summary>
+    /// 死因：魂归
+    /// </summary>
+    public static TranslatableTag SoulBack = new TranslatableTag("state.soulback"); // 本来我想叫这个state.sb。
+}
+public static class team
+{
+    /// <summary>
+    /// 灵阵营
+    /// </summary>
+    public static readonly RoleTeam SpiritTeam = NebulaAPI.Preprocessor.CreateTeam("teams.spirit", new Virial.Color(0f, 0.1f, 0.4f), 0);
+    public static readonly GameEnd SpiritWin = NebulaAPI.Preprocessor.CreateEnd("spiritWin", SpiritTeam.Color, 71);
+    /// <summary>
+    /// 寻仇者阵营
+    /// </summary>
+    public static readonly RoleTeam HAvengerTeam = NebulaAPI.Preprocessor.CreateTeam("teams.Havenger", new Virial.Color(0.8f, 0.2f, 0.2f), TeamRevealType.OnlyMe);
+    public static readonly GameEnd HAvengerWin = NebulaAPI.Preprocessor.CreateEnd("HavengerWin", new Virial.Color(0.8f, 0.2f, 0.2f), 70);
+}
+
+
 [NebulaPreprocess(PreprocessPhase.PostFixStructure)]
 [NebulaRPCHolder]
-public static class PatchManager
+public static class Patch
 {
     public static bool IsAdmin(PlayerControl player)
     {
         return AmongUsClient.Instance.AmHost;
     }
-    //{ ..., PatchManager.RefereeChatEnabled }
     public static BoolConfiguration RefereeChatEnabled = NebulaAPI.Configurations.Configuration("options.referee.chatEnabled", true, null, null);
     private static void SendLocalMessage(string message)
     {
@@ -48,7 +95,7 @@ public static class PatchManager
     {
         var harmony = new Harmony("Hsg.addon.commands");
         var original = typeof(ChatController).GetMethod("SendChat");
-        var prefix = new HarmonyMethod(typeof(PatchManager).GetMethod(nameof(OnSendChat), BindingFlags.Static | BindingFlags.NonPublic));
+        var prefix = new HarmonyMethod(typeof(Patch).GetMethod(nameof(OnSendChat), BindingFlags.Static | BindingFlags.NonPublic));
         HsgDebug.Log("loading private chat");
         if (original != null)
         {
@@ -152,7 +199,6 @@ public static class PatchManager
                 __instance.freeChatField.Clear();
                 return false;
             }
-            // 孩子们if太好用了我这辈子也不用switch。
             string message = string.Join(" ", strs.Skip(1));
             RpcReChat.Invoke((PlayerControl.LocalPlayer.PlayerId, message));
             __instance.freeChatField.Clear();

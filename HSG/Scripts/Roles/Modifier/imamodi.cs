@@ -1,5 +1,6 @@
 ﻿using Nebula.Modules;
 using Nebula.Roles;
+using NebulaN.Core;
 using NebulaN.Roles.Neutral;
 using Virial.Events.Player;
 using GamePlayer = Virial.Game.Player;
@@ -73,7 +74,7 @@ public class ImaginationModifier : DefinedModifierTemplate, DefinedModifier
 
             if (candidates.Count == 0)
             {
-                MyPlayer.Suicide(Imagination.Depression, null, KillParameter.NormalKill, null);
+                MyPlayer.Suicide(State.Depression, null, KillParameter.NormalKill, null);
                 return;
             }
 

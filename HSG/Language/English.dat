@@ -1,1 +1,299 @@
-﻿
+﻿#Crewmate
+
+"role.maskedDancer.name" : "Masked Dancer"
+"role.maskedDancer.short" : "Dancer"
+"role.maskedDancer.blurb" : "Shall we dance?"
+"role.maskedDancer.doc" : "Invite three players to the party. You can start the party after the next meeting ends."
+"options.role.maskedDancer.detail" : "The Masked Dancer can invite three players and start the party.<br>The party's effect depends on the factions of the invited players.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.maskedDancer.ability.title" : "<b>Ability: Masquerade Ball</b>"
+"role.maskedDancer.ability.main" : "You can use <b>Invite</b> to invite three players.<br>After inviting three and the round ends, you can <b>Start Party</b>.<br>If the chosen players consist of one Impostor, one Crewmate, and one Neutral, or three Crewmates, nothing happens.<br>If there are two Crewmates and one Neutral or Impostor, that Neutral or Impostor dies.<br>If there are no Crewmates, the Masked Dancer commits suicide.<br>If there is only one Crewmate, a random invited player is killed."
+"role.maskeddancer.doc.invite" : "<b>Invite</b><br>Invite one player to the party."
+"role.maskeddancer.doc.start" : "<b>Start Party</b><br>Start the party after inviting three players."
+"role.maskedDancer.tips" : "<b>· After inviting 3 players, you can start the party in the next round.</b>"
+"options.role.maskeddancer.inviteCooldownFirst" : "First Invite Cooldown"
+"options.role.maskeddancer.inviteCooldownSecond" : "Second Invite Cooldown"
+"options.role.maskeddancer.inviteCooldownThird" : "Third Invite Cooldown"
+"options.role.maskeddancer.partyuses" : "Party Uses"
+"button.label.maskedDancer.invite" : "Invite"
+"button.label.maskedDancer.start" : "Start Party"
+"options.role.maskeddancer.startcooldown" : "Start Party Cooldown"
+
+"achievement.maskedDancer.party.title" : "Fake Mask"
+"achievement.maskedDancer.party.goal" : "Start a party once."
+
+"achievement.maskedDancer.accident.title" : "An Accident!"
+"achievement.maskedDancer.accident.goal" : "Someone dies from a party accident."
+
+"achievement.maskedDancer.suicide.title" : "Broken Mask"
+"achievement.maskedDancer.suicide.goal" : "The Masked Dancer commits suicide during the party."
+
+
+
+
+
+
+
+
+"role.referee.name" : "Referee"
+"role.referee.short" : "Referee"
+"role.referee.blurb" : "Don't let me down."
+"role.referee.doc" : "Recruit a player to become a High Priest.<br>If you recruit an Impostor or Neutral, you may commit suicide based on settings.<br><b>Cannot recruit in the first round.</b>"
+"role.referee.ability.title" : "<b>Ability: Righteous Judgment</b>"
+"role.referee.ability.main" : "Recruit one player to become a High Priest. Cannot use the skill in the first round."
+"role.referee.doc.recruit" : "<b>Recruit</b><br>Make the target a High Priest."
+"options.role.referee.detail" : "The Referee can recruit one person to be a High Priest.<br><b>This is one of Half Sugar's gifts to you!</b>"
+
+"options.role.referee.cooldown" : "Recruit Cooldown"
+"options.role.referee.uses" : "Recruit Uses"
+"options.role.referee.suicideImpostor" : "Suicide when recruiting an Impostor"
+"options.role.referee.suicideNeutral" : "Suicide when recruiting a Neutral"
+"options.role.referee.suicideCrewmate" : "Suicide when recruiting a Crewmate"
+"button.label.referee.recruit" : "Recruit"
+
+
+"role.wish.name" : "Wish"
+"role.wish.blurb" : "May our next meeting not be separated by death."
+"role.wish.short" : "Wish"
+"role.wish.doc" : "Use <b>Pray</b> to mark a player, allowing you to see the killer's info if they die, or protect them from being exiled."
+"role.wish.ability.title" : "<b>Ability: Prayer</b>"
+"role.wish.ability.main" : "You can use <b>Pray</b> to place a mark on someone. When marked, if they die, you learn the killer's identity. If they are exiled, the exile is prevented. Based on host settings, Wish may commit suicide when Pray is used on an Impostor, Crewmate, or Neutral."
+"role.wish.doc.wishSkill" : "<b>Pray</b><br>Mark a player during the action phase."
+"role.wish.tips" : " "
+"options.role.wish.detail" : "Wish can mark others and trigger skill effects.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"options.role.wish.MarkCoolDown" : "Skill Cooldown"
+"options.role.wish.MarkMaxUses" : "Max Skill Uses"
+"options.role.wish.suicideImpostor" : "Die instantly when Praying on an Impostor"
+"options.role.wish.suicideNeutral" : "Die instantly when Praying on a Neutral"
+"options.role.wish.suicideCrewmate" : "Die instantly when Praying on a Crewmate"
+"button.label.wish.mark" : "Pray"
+
+
+
+
+
+
+#Impostor
+
+
+"role.BeNothing.name" : "Comet Child of Betrayal"
+"role.BeNothing.short" : "B.Comet"
+"role.BeNothing.blurb" : "Give them the final blow."
+"options.role.BeNothing.detail" : "Can enter an invisible state and greatly increase movement speed.<br>Returns to normal after the duration ends.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.BeNothing.doc" : "<b>This role is a test role with both overpowered abilities and bugs.</b><br><b>Do not enable in normal play.</b><br>Can enter an invisible state and greatly increase movement speed. Returns to normal after the duration ends."
+"options.role.BeNothing.cooldown" : "Invisibility Cooldown"
+"options.role.BeNothing.duration" : "Invisibility Duration"
+"options.role.BeNothing.speedMultiplier" : "Speed Multiplier"
+"button.label.BeNothing" : "Invisible"
+
+"achievement.BeNothing.common1.title" : "?"
+"achievement.BeNothing.common1.cond" : "Nothing"
+"achievement.BeNothing.common1.goal" : "Obtain the evil Comet Child role."
+
+"role.restorer.name" : "Restorer"
+"role.restorer.short" : "Rest"
+"role.restorer.blurb" : "Remember your purest self."
+"options.role.restorer.detail" : "Choose a player. After the next meeting, their role is restored to its original state.<br><b>This is one of Half Sugar's gifts to you!</b>."
+"role.restorer.doc" : "The Restorer can mark other players and forcibly change their role after the next meeting.<br><br>Use the skill to select a target, and they will be 'restored' to a basic role: Crewmate, Impostor, or Jester."
+"role.restorer.doc.image" : "<b>Restore</b><br>Restore the target to their original role.<br>Crewmate faction - Crewmate, Impostor faction - Impostor, Neutral faction - <b>Jester</b><br>Restore uses: <b><color=#00ffff>%USES% times</color></b>"
+"options.role.restorer.cooldown" : "Restore Cooldown"
+"options.role.restorer.skillUses" : "Restore Uses"
+"button.label.restorer" : "Restore"
+"role.restorer.ability.title" : "<b>Ability: Primordial Time</b>"
+"role.restorer.ability.main" : "Use Restore to revert someone's role."
+"role.restorer.tips" : "·<b>Don't vote out the Jester you restored!</b><br>·This role is inspired by <b>Eraser</b>"
+
+"achievement.restorer.common.restored.title" : "Who am I? Where am I?"
+"achievement.restorer.common.restored.cond" : ""
+"achievement.restorer.common.restored.goal" : "Have your role restored by a Restorer."
+
+
+"achievement.restorer.common.win.title" : "Everything is just like the beginning"
+"achievement.restorer.common.win.cond" : ""
+"achievement.restorer.common.win.goal" : "Win once."
+
+
+"achievement.restorer.common.dead.title" : "The End"
+"achievement.restorer.common.dead.cond" : "Hint: Maybe you need to be killed first?"
+"achievement.restorer.common.dead.goal" : "Die without using Restore."
+
+
+"achievement.restorer.challenge.same.title" : "Same magic as mine?!"
+"achievement.restorer.challenge.same.cond" : ""
+"achievement.restorer.challenge.same.goal" : "Restore another Restorer."
+
+
+"achievement.restorer.challenge.all.title" : "Restore everyone present"
+"achievement.restorer.challenge.all.cond" : "Hint: Recommended to complete with 5 or fewer players."
+"achievement.restorer.challenge.all.goal" : "Restore everyone's role."
+
+
+"achievement.restorer.challenge.unused.title" : "Did I forget something?"
+"achievement.restorer.challenge.unused.cond" : ""
+"achievement.restorer.challenge.unused.goal" : "Don't use Restore for an entire game."
+
+
+"achievement.restorer.challenge.jesterWin.title" : "Heavenly Delight!"
+"achievement.restorer.challenge.jesterWin.cond" : "Hint: Think about the consequences before voting."
+"achievement.restorer.challenge.jesterWin.goal" : "Vote out a Jester that was restored by a Restorer."
+"achievement.restorer.challenge.jesterWin.splitted.0" : "Heavenly"
+"achievement.restorer.challenge.jesterWin.splitted.1" : "Failed"
+"achievement.restorer.challenge.jesterWin.splitted.2" : "Joyful"
+
+
+
+
+
+
+
+
+
+
+"role.objector.name" : "Objector"
+"role.objector.blurb" : "I'm not satisfied with the outcome of this meeting."
+"role.objector.doc" : "<b>This role has bugs.</b><br>You can use the <b>Objection</b> skill during meetings.<br>If you use Objection, all votes in this round will be converted to abstentions."
+"options.role.objector.detail" : "The Objector can use a skill to nullify all votes this meeting.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.objector.ability.title" : "<b>Ability: Objection Ruling</b>"
+"role.objector.ability.main" : "You can use Objection to change everyone's vote to abstain this meeting.<br>If you change your mind, you can cancel the objection before the voting results appear."
+"role.objector.doc.objection" : "<b>Objection</b><br>Raise an objection during the meeting phase. Max uses: <b><color=#00ffff>%USES%</color>.</b>"
+"role.objector.doc.cancel" : "<b>Cancel Objection</b><br>You can cancel your objection."
+"role.objector.tips" : "<b>·Not recommended to enable this role in non-anonymous voting.</b>"
+"options.role.objector.uses" : "Max Objection Uses"
+"objector.ui.uses" : "Remaining objections: %LEFTUSES%"
+
+
+
+"role.owl.name" : "Owl"
+"role.owl.short" : "Owl"
+"role.owl.blurb" : "Those who walk at night serve me!"
+"role.owl.doc" : "You can use Hypnotize to hypnotize a player.<br>The hypnotized player gains one kill opportunity and counts as Impostor faction.<br>The hypnotized returns to normal after killing one person. If they do not kill within <b><color=#00ffff>%DUR% seconds</color></b>, <b>the hypnotized commits suicide.</b>"
+"options.role.owl.detail" : "The Owl can hypnotize others.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.owl.ability.title" : "<b>Ability: Hypnosis</b>"
+"role.owl.ability.main" : ""
+"role.owl.tips" : "<b>·If you use Soul Eater, you will teleport to the hypnotized and kill them directly, rather than letting them commit suicide silently.</b>"
+"options.role.owl.cooldown" : "Hypnotize Cooldown"
+"options.role.owl.maxUses" : "Max Hypnotize Uses"
+"options.role.owl.duration" : "Hypnotized Suicide Timeout"
+"options.role.owl.privateChat" : "Private Chat"
+"options.role.owl.soulEatCooldown" : "Soul Eater Cooldown"
+"button.label.owl.hypnotize" : "Hypnotize"
+"button.label.owl.soulEat" : "Soul Eater"
+"button.label.owl.soulEatMeeting" : "Soul Eater"
+"role.owl.doc.hypnotize" : "<b>Hypnotize</b><br>Hypnotize a person. Max uses: <b><color=#00ffff>%MAXUSES%</color></b>."
+"role.owl.doc.soulEat" : "<b>Soul Eater</b><br>Instantly kill the hypnotized player."
+"owl.chatName" : "Owl"
+
+
+
+#Neutral
+
+"role.Havenger.blurb" : "An eye for an eye, a life for a life."
+"role.Havenger.doc" : "<b>This role has bugs</b><br>If killed during the action phase, your body disappears and you gain Vengeance state next round.<br>During this time, meetings are disabled and everyone is prohibited from using vents.<br>If you kill the wrong person, both you and the target die. If time runs out, you die. If you kill correctly, you win."
+"role.Havenger.name" : "Avenger"
+"role.Havenger.tips" : "·You only have one vengeful kill."
+"options.role.Havenger.detail" : "After dying, the Avenger must take revenge on the killer.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.Havenger.short" : "Av"
+"options.role.Havenger.revengeDuration" : "Revenge Duration"
+"teams.Havenger" : "Avenger"
+"button.label.Havenger.kill" : "Revenge"
+
+"achievement.avenger.common.revenge.title" : "Blood for Blood"
+"achievement.avenger.common.revenge.goal" : "Kill the murderer"
+"achievement.avenger.common.revenge.cond" : ""
+
+"achievement.avenger.common.wrongKill.title" : "Killing the Innocent"
+"achievement.avenger.common.wrongKill.goal" : "Kill a non-murderer during the revenge phase"
+"achievement.avenger.common.wrongKill.cond" : ""
+
+"achievement.avenger.common.timeout.title" : "Soul Dissipates"
+"achievement.avenger.common.timeout.goal" : "Revenge time ends without killing anyone"
+"achievement.avenger.common.timeout.cond" : ""
+
+
+
+
+
+"role.imagination.name" : "Imagination"
+"role.imagination.short" : "Imag"
+"role.imagination.blurb" : "Rich imagination."
+"role.imagination.doc" : "Survive to the end and steal victory from others.<br>Each round you can imagine a role and gain its abilities."
+"teams.imagination" : "Imagination"
+"options.role.imagination.candidateCount" : "Roles to Imagine per Round"
+"options.role.imagination.roleFilter" : "Imaginable Roles"
+"options.role.imagination.detail" : "Imagination can imagine a role each round and gain its traits.<br>Survive to the end to steal the victory.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.imagination.ability.title" : "<b>Ability: Extraordinary Imagination</b>"
+"role.imagination.ability.main" : "At the end of each meeting or at game start, you can choose a role and gain its abilities.<br>After this round ends, you must choose again."
+"role.imagination.doc.skill" : "<b>Imagine</b><br>Automatically used each round; choose a role and gain its abilities."
+"role.imagination.tips" : "<b>·Some roles do not grant their skills when chosen.</b><br><b>·You can steal victory.</b>"
+
+"role.imagination.prefix" : "Imagined %ROLE%"
+"role.imagination.select" : "Choose a role to imagine (Close this window manually after selecting)"
+
+"role.spirit.name" : "Spirit"
+"role.spirit.short" : "Sp"
+"role.spirit.blurb" : "Spirits rise and shatter, entrusted with a grand task. Spirits connect, and spirits shatter spirits, without end."
+"role.spirit.doc" : "You can use Spirit Strike to make the target commit suicide.<br>You can use <b>Spirit Return</b> to turn another player into a Spirit, while you become a Broken Spirit."
+"options.role.spirit.detail" : "Turn others into Spirits to win together.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.spirit.ability.title" : "<b>Ability: Spirit Flame</b>"
+"role.spirit.ability.main" : "Possesses a special killing ability that directly forces the target to commit suicide, with uses based on host settings.<br>When kills are used up, the Spirit Return skill unlocks.<br>Use on someone to make them a Spirit, and you become a Broken Spirit.<br>Whether Broken Spirits can kill and the number of kills depends on host settings.<br>If the Spirit dies, all Broken Spirits die with them.<br>A }{ mark appears after the names of Spirits and Broken Spirits, visible only to the Spirit faction."
+"role.spirit.doc.sb" : "<b>Spirit Return</b><br>Turn another into a Spirit, turning yourself into a Broken Spirit."
+"options.role.spirit.KillCoolDown" : "Kill Cooldown"
+"options.role.spirit.KillMaxUses" : "Max Kill Uses"
+"options.role.spirit.SoulBack" : "Can use Spirit Return"
+"button.label.spirit.kill" : "Spirit Strike"
+"button.label.spirit.sb" : "Spirit Return"
+
+"role.brokenspirit.name" : "Broken Spirit"
+"role.brokenspirit.short" : "BrkSp"
+"role.brokenspirit.blurb" : "A battered and broken 'spirit'."
+"role.brokenspirit.doc" : "Broken Spirit is a role created when Spirit uses Spirit Return. It has a normal kill ability with uses based on host settings.<br>When the Spirit dies, all Broken Spirits die.<br>A }{ mark appears after the names of Spirit and Broken Spirits, visible only to this faction."
+"options.role.brokenspirit.detail" : "Broken Spirit is the role created when Spirit uses Spirit Return.<br><b>This is one of Half Sugar's gifts to you!</b>"
+
+
+
+#Addon
+
+"role.firstStrike.name" : "First Strike"
+"role.firstStrike.short" : "%"
+"role.firstStrike.generalBlurb" : ""
+"options.role.firstStrike.detail" : "At the end of each meeting or at game start,<br>your kill cooldown is immediately reset to <color=#FF0000>0 seconds</color>,<br>allowing you to attack immediately.<br><b>This is one of Half Sugar's gifts to you!</b>"
+"role.firstStrike.doc" : "At the end of each meeting or at game start, your kill cooldown resets to <color=#FF0000>0 seconds</color>."
+
+
+"role.imagimodi.name" : "Imagination"
+"role.imagimodi.generalBlurb" : "Rich imagination."
+"role.imagimodi.doc" : "Please see the <b>Imagination</b> main role."
+
+
+"role.HNoiseMaker.name" : "Loudmouth"
+"role.HNoiseMaker.generalBlurb" : "Make a noise when you die."
+"role.HNoiseMaker.doc" : "When the Loudmouth dies, an alert and arrow appear at the death location accompanied by a 'woof' sound.<br><b>This is the addon version of Loudmouth.</b>"
+"options.role.HNoiseMaker.noiseDuration" : "Alert Duration"
+"options.role.HNoiseMaker.detail" : "When the Loudmouth is killed, an alarm sounds.<br>Lucky are those who play with a Bait.<br><b>This is one of Half Sugar's gifts to you!</b>"
+
+
+
+"role.keymaster.name" : "Keymaster"
+"role.keymaster.generalBlurb" : "Open Sesame"
+"role.keymaster.doc" : "You can directly open all doors except <b>SKELD</b> and <b>MIRAHQ</b>."
+"options.role.keymaster.detail" : "You can open doors directly."
+"options.modifier.keymaster.cooldown" : "Open Door Cooldown"
+"button.label.keymaster.open" : "Open Door"
+
+
+"role.hypnotized.name" : "Hypnotized"
+"role.hypnotized.generalBlurb" : "Product of hypnosis"
+"role.hypnotized.doc" : "You have been hypnotized by the Owl and gained one kill chance.<br>If you don't use it within the time limit, you will commit suicide."
+
+#Death Reasons
+
+"state.imaginationDepression" : "Depression"
+"state.partyAccident" : "Party Accident"
+"state.brokewish" : "Broken Wish" 
+"state.sanling" : "Scattered Spirits"
+"state.soulback" : "Soul Return"
+
+#Factions
+"teams.Havenger" : "Avenger"
+"HavengerWin" : "Avenger Victory"
+"teams.spirit" : "Spirit"
+"spiritWin" : "Spirit Victory"
